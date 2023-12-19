@@ -1,0 +1,55 @@
+head
+    title Quotation
+    link(rel='stylesheet', href='/style.css')
+    script(src='https://code.jquery.com/jquery-3.6.4.min.js')  // Include jQuery for easier DOM manipulation
+    script.
+        $(document).ready(function() {
+            // Add Travel Section
+            console.log('Document is ready!');
+            $("#addquotation").click(function() {
+                var travelSection = $(".quotation-section:first").clone();
+                travelSection.find("input").val("");  // Clear input values
+                var hrElement = $('<hr>');
+                travelSection.prepend(hrElement);
+
+                $('.quotation-section').after(travelSection);
+            });
+
+            // Remove Travel Section
+            $("#removequotation").click(function() {
+                if ($(".quotation-section").length > 1) {
+                    $(".quotation-section:last").remove();
+                }
+            });
+        });
+
+
+body
+    include header1.pug
+    .dashboard-container
+        .forms        
+            h2.scaps.center Quotations
+            form(action=`/quotation?pid=${pid}`, method='post')
+                .quotation-section
+                    label(for='title') Company Name:
+                    input(type='text', name='title', required=true)
+                    br
+                    label(for='description') Description:
+                    textarea(name='description', required=true)
+                    br
+                    label(for='cost') Cost:
+                    input(type='number', min="0" name='cost', required=true)
+                    br
+                    label(for='supply_date') Supply Date:
+                    input(type='date', name='supply_date', required=true)
+                    br
+                    label(for='supply_type') Supply Type:
+                    input(type='text', name='supply_type', required=true)
+                    br
+                    label(for='taxtype') Tax Type:
+                    input(type='text' name='taxtype' required=true)
+                    br
+                p.gorg
+                    button(type='button' id='addquotation' class='button') Add
+                    button(type='button' id='removequotation' class='button') Remove
+                    button(type='submit' class='button') Submit

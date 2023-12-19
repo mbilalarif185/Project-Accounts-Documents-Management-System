@@ -1,0 +1,12 @@
+html
+  head
+    title Projects List
+  body
+    include header1.pug
+    h1.center.scaps Projects List
+    p.center Select project to view details
+
+    ol
+      each project in projects
+        li
+          a(href=`/account_showprojects?pid=${project.pid}`)= project.title

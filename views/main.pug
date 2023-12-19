@@ -1,0 +1,12 @@
+html
+  head
+    title Invoices Dashboard
+  body
+    include header1.pug
+    h1.scaps.center Generate Invoice
+    p.center Select project to generate invoices
+
+    ol
+      each project in projects
+        li
+          a(href=`/supply_order?pid=${project.pid}`)= project.title

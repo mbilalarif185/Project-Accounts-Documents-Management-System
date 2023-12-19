@@ -1,0 +1,13 @@
+html
+  head
+    title Project Dashboard
+    link(rel="stylesheet", href="/style.css")
+  body
+    include header1.pug
+    h1.scaps.center Project Dashboard
+    p.center Select project to view details
+
+    ol
+      each project in result.rows
+        li
+          a(href=`/projects/${project.id}`)= project.title

@@ -1,0 +1,12 @@
+html
+  head
+    title Account Officer Dashboard
+    link(rel='stylesheet', href='/style.css')
+  body
+    include header1.pug
+    header
+      h1.center.scaps Welcome #{user.name}!
+      p.center Select an action to perform
+      .dashboardButtons
+        a(href='/account_view_projects' class='button') Show Projects
+        a(href='/view_order' class='button') View Supplier Order

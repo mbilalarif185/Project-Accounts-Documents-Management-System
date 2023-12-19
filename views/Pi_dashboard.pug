@@ -1,0 +1,15 @@
+html
+  head
+    title PDMS
+    link(rel='stylesheet', href='/style.css')
+  body
+    include header1.pug
+    header
+      h1.center.scaps Welcome #{user.name}!
+      p.center Select an action to perform
+      .dashboardButtons
+        a(href='/grant_org' class='button') Add Project
+        a(href='/add_quotation' class='button') Add Quotation
+        a(href='/main' class='button') Generate Invoice
+        a(href='/view_projects' class='button') View Projects
+        a(href='/payment_main' class='button') Generate Payment Document

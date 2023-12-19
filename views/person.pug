@@ -1,0 +1,56 @@
+head
+    title Person Details
+    link(rel='stylesheet' href='/style.css')
+    script(src='https://code.jquery.com/jquery-3.6.4.min.js')  // Include jQuery for easier DOM manipulation
+    script.
+        $(document).ready(function() {
+            // Add Person Section
+            console.log('docs is ready!')
+            $("#addPerson").click(function() {
+                var personSection = $(".person-section:first").clone();
+                personSection.find("input").val("");  // Clear input values
+                var hrElement = $('<hr>');
+                personSection.prepend(hrElement)
+
+                $('.person-section').after(personSection);
+            });
+
+            // Remove Person Section
+            $("#removePerson").click(function() {
+                if ($(".person-section").length > 1) {
+                    $(".person-section:last").remove();
+                }
+            });
+        });
+body
+    include header1.pug
+    .dashboard-container
+        .forms        
+            h2.scaps.center Person Information
+            form(id='personForm' action='/person' method='post')
+                // Initial Person Section
+                .person-section
+                    label(for='name') Name:
+                    input(type='text' name='name', required=false)
+                    br
+                    label(for='contact') Contact No:
+                    input(type='text' name='contact', required=false)
+                    br
+                    label(for='designation') Designation:
+                    input(type='text' name='designation', required=false)
+                    br
+                    label(for='experience') Experience:
+                    input(type='number' min="0" name='experience', required=false)
+                    br
+                    label(for='monthly_payment') Monthly Payment:
+                    input(type='number' min="0" name='monthly_payment', required=false)
+                    br
+                    label(for='taxtype') Tax Type:
+                    input(type='text' name='taxtype', required=false)
+                    br
+                p.gorg
+                    button(type='button' id='addPerson' class='button') Add Person
+                    button(type='button' id='removePerson' class='button') Remove Person
+
+                
+                    button(type='submit' class='button') Submit

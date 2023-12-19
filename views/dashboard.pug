@@ -1,0 +1,23 @@
+html
+head
+    title Project Details
+    link(rel='stylesheet', href='/style.css')
+body
+    include header1.pug
+    .dashboard-container
+        .forms
+            h2.center.scaps Project Details
+            br
+            form( method='post' action='/submitproject')
+                label(for='title') Title:
+                input(type='text', name='title', required=true)
+                label(for='description') Description:
+                textarea(name='description', required=true)
+                label(for='startDate') Start Date:
+                input(type='date', name='startdate', required=true)
+                label(for='endDate') End Date:
+                input(type='date', name='enddate', required=true)
+                label(for='totalBudget') Total Budget:
+                input(type='number', min="0" name='totalbudget', required=true)
+                p.gorg
+                    button(type='submit' class='button') Submit Project

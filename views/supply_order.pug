@@ -1,0 +1,54 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    link(rel='stylesheet', href='/invoice.css')
+    title Invoice 
+  body
+    .container
+      h2 Invoice
+      .invoice-header
+        h1 Project Name: #{project.title}
+        .left-header
+        .right-header
+          p Date: 
+            = new Date().toLocaleDateString('en-US')
+      .invoice-section
+        .left-section
+          h3 Company Name: #{projects.title}
+          p Description: #{projects.description}
+          p Invoice By: #{user.name}
+        .right-section
+          .price-section
+            p.price-label Price: #{projects.cost}
+            p.price-value
+            p.gst-label GST (18%):#{projects.cost * 0.18}
+            p.gst-value 
+            h4.total-label Total:#{(projects.cost * 0.18) + projects.cost}
+            h4.total-value 
+      .button-container
+        button#downloadBtn(type="button") Download as PDF
+  // Add the html2pdf library from CDN
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.js")
+  // Add the script to handle the button click and generate the PDF
+  script.
+    document.getElementById('downloadBtn').addEventListener('click', function () {
+      const invoiceContainer = document.querySelector('.container');
+      
+      // Clone the container to exclude the button from the clone
+      const cloneContainer = invoiceContainer.cloneNode(true);
+      const buttonContainer = cloneContainer.querySelector('.button-container');
+      if (buttonContainer) {
+        buttonContainer.parentNode.removeChild(buttonContainer);
+      }
+
+      // Use html2pdf library to generate the PDF
+      html2pdf(cloneContainer, {
+        margin: 10,
+        filename: 'invoice.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      });
+    });

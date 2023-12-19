@@ -1,0 +1,48 @@
+html
+head
+    title Services Details
+    link(rel='stylesheet', href='/style.css')
+    script(src='https://code.jquery.com/jquery-3.6.4.min.js')  // Include jQuery for easier DOM manipulation
+    script.
+        $(document).ready(function() {
+            // Add Person Section
+            console.log('docs is ready!')
+            $("#addservices").click(function() {
+                var personSection = $(".services-section:first").clone();
+                personSection.find("input").val("");  // Clear input values
+                var hrElement = $('<hr>');
+                personSection.prepend(hrElement)
+
+                $('.services-section').after(personSection);
+
+                //- $(".forms").append(personSection);
+            });
+
+            // Remove Person Section
+            $("#removeservices").click(function() {
+                if ($(".services-section").length > 1) {
+                    $(".services-section:last").remove();
+                }
+            });
+        });
+
+body
+    include header1.pug
+    .dashboard-container
+        .forms  
+            h2.scaps.center Services Details
+            br
+            form(method='post' action='/services')
+                .services-section
+                        label(for='title') Title:
+                        input(type='text', name='title', required=true)
+                        label(for='description') Description:
+                        textarea(name='description', required=true)
+                        label(for='cost') Cost:
+                        input(type='number', min="0" name='cost', step='0.01', required=true)
+                        label(for='taxtype') Tax Type:
+                        input(type='text', name='taxtype', required=true)
+                p.gorg 
+                    button(type='button' id='addservices' class='button') Add
+                    button(type='button' id='removeservices' class='button') Remove
+                    button(type='submit' class='button') Submit

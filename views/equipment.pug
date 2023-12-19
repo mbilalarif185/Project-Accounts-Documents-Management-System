@@ -1,0 +1,55 @@
+html
+head
+    title Equipment Details
+    link(rel='stylesheet', href='/style.css')
+    script(src='https://code.jquery.com/jquery-3.6.4.min.js')  // Include jQuery for easier DOM manipulation
+    script.
+        $(document).ready(function() {
+            // Add Person Section
+            console.log('docs is ready!')
+            $("#addequipment").click(function() {
+                var personSection = $(".equipment-section:first").clone();
+                personSection.find("input").val("");  // Clear input values
+                var hrElement = $('<hr>');
+                personSection.prepend(hrElement)
+
+                $('.equipment-section').after(personSection);
+
+                //- $(".forms").append(personSection);
+            });
+
+            // Remove Person Section
+            $("#removeequipment").click(function() {
+                if ($(".equipment-section").length > 1) {
+                    $(".equipment-section:last").remove();
+                }
+            });
+        });
+
+body
+    include header1.pug
+    .dashboard-container
+        .forms
+            h2.scaps.center Equipment Details
+            br
+            form(method='post' action='/equipment')
+                .equipment-section
+                    label(for='title') Title:
+                    input(type='text', name='title', required=true)
+                    label(for='purchase_date') Purchase Date:
+                    input(type='date', name='purchase_date', required=true)
+                    label(for='specification') Specification:
+                    input(type='text', name='specification')
+                    label(for='quantity') Quantity:
+                    input(type='number',min="0"  name='quantity', required=true)
+                    label(for='cost') Cost:
+                    input(type='number',min="0"  name='cost', step='0.01', required=true)
+                    label(for='taxtype') Tax Type:
+                    input(type='text', name='taxtype', required=true)
+                p.gorg
+                    button(type='button' id='addequipment' class='button') Add
+                    button(type='button' id='removeequipment' class='button') Remove 
+
+                    button(type='submit' class='button') Submit 
+
+        

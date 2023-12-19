@@ -1,0 +1,19 @@
+html
+head
+    title Dashboard
+    link(rel='stylesheet', href='/style.css')
+body
+    include header1.pug
+    h2.center.scaps Organization Details
+    br
+    form(method='post' action='/grant_org' class='')
+        label(for='name') Name:
+        input(type='text', name='name', required=true)
+        label(for='address') Address:
+        input(type='text', name='address', required=true)
+        label(for='contact_person') Contact Person Phone No:
+        input(type='text', name='contact_person', required=true)
+        label(for='contact_email') Email:
+        input(type='email', name='contact_email', required=true)
+        p.gorg
+            button(type='submit' class="button") Submit

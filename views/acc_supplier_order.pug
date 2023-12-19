@@ -1,0 +1,12 @@
+html
+  head
+    title Supplies Dashboard
+  body
+    include header1.pug
+    h1.scaps.center Supplier Order Generation
+    p.center Select project to generate supplier order
+
+    ol
+      each project in projects
+        li
+           a(href=`/supply_order?pid=${project.pid}`)= project.title

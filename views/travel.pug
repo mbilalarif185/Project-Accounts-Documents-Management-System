@@ -1,0 +1,54 @@
+head
+    title Travel Details
+    link(rel='stylesheet', href='/style.css')
+    script(src='https://code.jquery.com/jquery-3.6.4.min.js')
+    script.
+        $(document).ready(function() {
+            // Add Travel Section
+            $("#addTravel").click(function() {
+                var travelSection = $(".travel-section:first").clone();
+                travelSection.find("input").val("");  // Clear input values
+                var hrElement = $('<hr>');
+                travelSection.prepend(hrElement);
+
+                $('.travel-section').after(travelSection);
+            });
+
+            // Remove Travel Section
+            $("#removetravel").click(function() {
+                if ($(".travel-section").length > 1) {
+                    $(".travel-section:last").remove();
+                }
+            });
+        });
+
+body
+    include header1.pug
+    .dashboard-container
+      .forms
+        h2.scaps.center Travel Details
+        br
+        form#personForm(method='post' action='/travel')
+            // Initial Travel Section
+            .travel-section
+                label(for='startfrom') Start From:
+                input(type='text' name='startfrom' required=true)
+                label(for='startdate') Start Date:
+                input(type='date' name='startdate' required=true)
+                label(for='starttime') Start Time:
+                input(type='time' name='starttime' required=true)
+                label(for='endto') End To:
+                input(type='text' name='endto' required=true)
+                label(for='enddate') End Date:
+                input(type='date' name='enddate' required=true)
+                label(for='endtime') End Time:
+                input(type='time' name='endtime' required=true)
+                label(for='cost') Cost:
+                input(type='number' min="0" name='cost' step='0.01' required=true)
+                label(for='taxtype') Tax Type:
+                input(type='text' name='taxtype' required=true)
+            p.gorg
+                button(type='button' id='addTravel' class='button') Add
+                button(type='button' id='removetravel' class='button') Remove
+
+                button(type='submit' class='button') Submit

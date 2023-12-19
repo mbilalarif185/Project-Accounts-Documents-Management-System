@@ -1,0 +1,96 @@
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    link(rel='stylesheet', href='/invoice.css')
+    title Payment Document
+
+body
+    .container
+      h3 Disbursement Voucher of Project: #{project.title}
+      h4 Supervised By: #{user.name}
+      hr
+      .payment-info
+        h4 Travel Details
+        - var val = 0
+        each travels, i in travel
+          h5 Travel #{i + 1}
+          p Start From: #{travels.startfrom}
+          p Start Date: #{travels.startdate}
+          p End TO: #{travels.endto}
+          p End Date: #{travels.enddate}
+          p Cost: #{Math.round(travels.cost)}
+          - val += parseFloat(travels.cost)
+        p Total Cost: #{val}
+      hr
+      .recipient-info
+        h4 Equipment Details
+        - var price = 0
+        each equipment, i in equipments
+          h5 Equipment #{i + 1}
+          p Title: #{equipment.title}
+          p Purchase_Date: #{equipment.purchase_date}
+          p Specification: #{equipment.specification}
+          p Quantity: #{equipment.quantity}
+          p Cost: #{Math.round(equipment.cost)}
+          - price += parseFloat(equipment.cost)
+        p Total Cost: #{price}
+      hr
+      .transaction-details
+        h4 Services Details
+        - let value = 0;
+        each service, i in services
+          h5 Service #{i + 1}
+          p Title: #{service.title}
+          p Description: #{service.description}
+          p Cost: #{Math.round(service.cost)}
+          - value += parseFloat(service.cost)
+        p Total Cost: #{value}
+      hr
+      .Person-details
+        h4 Person Details
+        - let pay = 0;
+        each person, i in Person
+          h5 Person #{i + 1}
+          p Name: #{person.name}
+          p Contact: #{person.contact}
+          p Designation: #{person.designation}
+          p Payment: #{Math.round(person.monthly_payment)}
+          - pay += parseFloat(person.monthly_payment)
+        p Total Payment: #{pay}
+      hr
+
+      // Right Section (Total Costs)
+      .right-section
+        .price-section
+          p.price-label Project Cost: #{val + price + value + pay}
+          p.gst-label GST (18%): #{(val + price + value + pay) * 0.18}
+          p.total-label Total Cost: #{(val + price + value + pay) + (val + price + value + pay) * 0.18}
+      
+      // Download Button
+      .button-container
+        button.downloadBtn(type="button") Download as PDF
+
+    // Script to handle PDF download
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.js")
+    script.
+      document.addEventListener('DOMContentLoaded', function () {
+        const downloadButton = document.querySelector('.downloadBtn');
+
+        downloadButton.addEventListener('click', function () {
+          const paymentDocument = document.querySelector('.container');
+
+          // Exclude the button-container from the PDF
+          const excludedElements = paymentDocument.querySelectorAll('.button-container');
+          excludedElements.forEach(element => element.remove());
+
+          // Use html2pdf library to generate the PDF
+          html2pdf(paymentDocument, {
+            margin: 10,
+            filename: 'payment_document.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+          });
+        });
+      });

@@ -1,0 +1,27 @@
+html
+  head
+    title= title
+    link(rel="stylesheet", href="/style.css")
+    link(rel="stylesheet", href="/loginStyle.css")
+  body
+    form(role='form' method='POST' action='/signupAction' class="loginform")
+      h1 Sign Up
+      if (error)
+        p #{error}
+
+      input(type='text', name='name',pattern='^[a-zA-Z]+$', placeholder="Enter your name")
+      br
+      input(type='email', name='email', placeholder='Enter your email', pattern='^[a-zA-Z0-9.!#$%&*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$') 
+      br
+      input(type="password", name="password", id="password", required, placeholder="Enter your password")
+      br
+      label(for='role') Sign Up as: 
+        select(name='role', required=true)
+            option(value='pi') Principal Investigator
+            option(value='accountant') Accountant
+            option(value='audit') Audit Officer
+      br
+      button(type="submit" class="button") Sign Up
+      br
+      p Already have an account? 
+        a(href='/') Login 

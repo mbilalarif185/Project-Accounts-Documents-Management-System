@@ -1,0 +1,12 @@
+html
+  head
+    title Payments Dashboard
+  body
+    include header1.pug
+    h1.scaps.center Payments Generation
+    p.center Select project to generate payments
+
+    ol
+      each project in projects
+        li
+           a(href=`/payment_document?pid=${project.pid}`)= project.title
